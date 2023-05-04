@@ -12,7 +12,7 @@
 #include "player.h"
 
 bool goes_before(player_t x, player_t y){
-    return (x->rank < y->rank);
+    return (x->rank <= y->rank);
 }
 
 bool array_is_sorted(player_t atp[], unsigned int length) {
@@ -61,3 +61,6 @@ static void quick_sort_rec(player_t a[], unsigned int izq, unsigned int der) {
 void sort(player_t a[], unsigned int length) {
     quick_sort_rec(a, 0u, (length == 0u) ? 0u : length - 1u);
 }
+
+// without pointers: cpu time used to sort the array: 0.002422 seconds.
+// with pointers: cpu time used to sort the array: 0.001093 seconds.

@@ -13,12 +13,16 @@ unsigned int data_from_file(const char *path, unsigned int indexes[], char lette
     for(unsigned int i = 0;feof(file)==0;i++){
         if (i >= max_size){
             printf("La cantidad de lineas del archivo supera el maximo\n");
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
         aux = fscanf(file, "%u -> *%c*\n", &indexes[i], &letters[i]);
+        if (indexes[i] >= max_size){
+            printf("El indice en el archivo supera el maximo\n");
+            exit(EXIT_FAILURE);
+        }
         if(aux != 2){
             printf("Error leyendo el archivo\n");
-            EXIT_FAILURE;
+            exit(EXIT_FAILURE);
         }
  
         length++;
@@ -46,7 +50,9 @@ int main(int argc, char *argv[]) {
 
     array_copy(letters, sorted, punteros, length);
 
-    sorting(indexes,sorted,length);
+    for(unsigned int i=0;i<length;i++){
+        sorted[indexes[i]] = letters[i];
+    }
 
     dump_char(sorted, length);
 
